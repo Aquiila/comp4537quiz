@@ -16,14 +16,18 @@ class Answer {
 
 class QuizService {
 
+    // host = "/assignment";
+    host = "";
+
     async getAllQuestions() {
-        return await fetch('/question')
-            .then(response => response.json());
+        return await fetch(this.host + '/question')
+            .then(response => {
+                return response.json();
+            });
     }
 
     updateQuestion(question) {
-        console.log("updateQuestion: ", question);
-        fetch('/question', {
+        fetch(this.host + '/question', {
             method: 'PUT', // *GET, POST, PUT, DELETE, etc.
             headers: {
                 'Content-Type': 'application/json'
@@ -33,15 +37,13 @@ class QuizService {
     }
 
     deleteQuestion(questionId) {
-        console.log("deleteQuestion: ", questionId);
-        fetch(`/question/${questionId}`, {
+        fetch(this.host + `/question/${questionId}`, {
             method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
         });
     }
 
     createQuestion(question) {
-        console.log("createQuestion: ", question);
-        return fetch('/question', {
+        return fetch(this.host + '/question', {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {
                 'Content-Type': 'application/json'
@@ -81,7 +83,6 @@ class AdminPage {
         this.addBtn.onclick = () => this.onAdd();
 
         this.quiz = await this.quizService.getAllQuestions();
-        console.log(this.quiz);
         if (this.quiz.length === 0) {
             this.addQuestionForm();
         } else {
@@ -90,7 +91,6 @@ class AdminPage {
     }
 
     onUpdate(question) {
-        console.log("onUpdate: ", question);
         this.quizService.updateQuestion(question);
     }
 
@@ -102,7 +102,6 @@ class AdminPage {
     onSave(question, node) {
         this.quizService.createQuestion(question)
             .then(q => {
-                console.log("q", q);
                 this.updateFormOnSave(node, q);
                 this.addBtn.disabled = false;
             });
@@ -255,7 +254,7 @@ class AdminPage {
         // </div>`;
         let answerText = "";
         let checked = false;
-        
+
         //TODO: add answer ids
 
         if (answers && answers.length > 0) {
@@ -314,14 +313,6 @@ class AdminPage {
         return new Question(node.id, currentQuestionText, answers, correctAnswer);
     }
 
-    // addOrUpdateQuiz(question) {
-    //     const existingIndex = this.quiz.findIndex(q => q.id == question.id);
-    //     if (existingIndex < 0) {
-    //         this.quiz.push(question);
-    //     } else {
-    //         this.quiz[existingIndex] = question;
-    //     }
-    // }
 }
 
 (function () {
