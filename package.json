@@ -1,0 +1,23 @@
+{
+  "name": "comp4537quiz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "backend/app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aquiila/comp4537quiz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aquiila/comp4537quiz/issues"
+  },
+  "homepage": "https://github.com/Aquiila/comp4537quiz#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}
